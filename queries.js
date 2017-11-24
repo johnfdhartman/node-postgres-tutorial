@@ -60,7 +60,7 @@ function createPuppy(req, res, next){
 function updatePuppy(req, res, next){
 	db.none('UPDATE pups SET name=$1, breed=$2, age=$3, sex=$4 WHERE id=$5',
 		[req.body.name, req.body.breed, parseInt(req.body.age), 
-			req.body.sex, parseInt(req.body.id)])
+			req.body.sex, parseInt(req.params.id)])
 		.then(function () {
 			res.status(200)
 				.json({
@@ -75,7 +75,7 @@ function updatePuppy(req, res, next){
 module.exports = {
 	getAllPuppies: getAllPuppies,
 	getSinglePuppy: getSinglePuppy,
-	createPuppy: createPuppy
+	createPuppy: createPuppy,
 	updatePuppy: updatePuppy,
 	// removePuppy: removePuppy
 };
