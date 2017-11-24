@@ -72,10 +72,24 @@ function updatePuppy(req, res, next){
 		});
 }
 
+function removePuppy(req, res, next){
+	var pupID = parseInt(req.params.id);
+	db.result('DELETE from PUPS where id = $1', pupID)
+		.then(function(result) {
+			res.status(200)
+				.json({
+					status: 'success',
+					message: `removed ${result.rowCount} puppy`
+				});
+		}).catch(function (err) {
+			return next(err);
+		});
+}
+
 module.exports = {
 	getAllPuppies: getAllPuppies,
 	getSinglePuppy: getSinglePuppy,
 	createPuppy: createPuppy,
 	updatePuppy: updatePuppy,
-	// removePuppy: removePuppy
+	removePuppy: removePuppy
 };
